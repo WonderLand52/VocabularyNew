@@ -45,6 +45,7 @@ public class AddActivity extends Activity implements View.OnClickListener{
             case R.id.btnSave:
                 Log.d(LOG_TAG, "---Saving words: ---");
                 Log.d(LOG_TAG, "HELLO WORLD!");
+                Log.d(LOG_TAG, "HELLO WAR!");
 
 
                 cv.put("original", etOrigin.getText().toString());
