@@ -14,7 +14,7 @@ public class MainActivity extends Activity implements View.OnClickListener{
 
 
 
-    Button btnAdd;
+    Button btnAdd, btnTraining;
 
     Intent intent;
     @Override
@@ -24,6 +24,9 @@ public class MainActivity extends Activity implements View.OnClickListener{
 
         btnAdd = (Button)findViewById(R.id.btnAdd);
         btnAdd.setOnClickListener(this);
+
+        btnTraining = (Button)findViewById(R.id.btnTraining);
+        btnTraining.setOnClickListener(this);
     }
 
 
