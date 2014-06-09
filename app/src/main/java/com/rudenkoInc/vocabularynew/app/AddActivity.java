@@ -39,22 +39,15 @@ public class AddActivity extends Activity implements View.OnClickListener{
     public void onClick(View view) {
         ContentValues cv = new ContentValues();
 
-        SQLiteDatabase dataBase = dbHelper.getReadableDatabase();
+        SQLiteDatabase dataBase = dbHelper.getWritableDatabase();
 
-        switch (view.getId()){
-            case R.id.btnSave:
-                Log.d(LOG_TAG, "---Saving words: ---");
+        Log.d(LOG_TAG, "---Saving words: ---");
 
-                cv.put("original", etOrigin.getText().toString());
-                cv.put("translation", etTranslate.getText().toString());
+        cv.put("original", etOrigin.getText().toString());
+        cv.put("translation", etTranslate.getText().toString());
 
-
-                long rowID = dataBase.insert("myWords", null, cv);
-                Log.d(LOG_TAG, "Row inserted, ID = " + rowID);
-                break;
-
-
-        }
+        long rowID = dataBase.insert("myWords", null, cv);
+        Log.d(LOG_TAG, "Row inserted, ID = " + rowID);
     }
 
     class DBHelper extends SQLiteOpenHelper {
@@ -65,7 +58,11 @@ public class AddActivity extends Activity implements View.OnClickListener{
 
         @Override
         public void onCreate(SQLiteDatabase db) {
-            db.execSQL("blya");
+            db.execSQL("create table myWords ("
+            + "id integer primary key autoincrement,"
+            + "original text,"
+            + "translation text"
+            + ");");
         }
 
         @Override

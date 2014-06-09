@@ -16,7 +16,7 @@ public class MainActivity extends Activity implements View.OnClickListener{
 
     Button btnAdd;
 
-
+    Intent intent;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,7 +31,12 @@ public class MainActivity extends Activity implements View.OnClickListener{
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btnAdd:
-                Intent intent = new Intent(this, AddActivity.class);
+                intent = new Intent(this, AddActivity.class);
+                startActivity(intent);
+                break;
+
+            case R.id.btnTraining:
+                intent = new Intent(this, ExerciseActivity.class);
                 startActivity(intent);
                 break;
         }
