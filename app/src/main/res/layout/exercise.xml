@@ -29,13 +29,30 @@
         android:textSize="30dp"
         android:text="Enter translation"/>
 
-    <Button
-        android:id="@+id/btnSubmit"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="10dp"
-        android:text="Submit"/>
+        android:layout_marginTop="30dp"
+        android:layout_gravity="right">
 
+        <Button
+            android:id="@+id/btnSubmit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="70dp"
+            android:text="Submit"
+            android:layout_gravity="center_horizontal" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="60dp"
+            android:text="Answers"
+            android:id="@+id/button2"
+            android:layout_gravity="center_horizontal" />
 
     </LinearLayout>
+
+
+</LinearLayout>
