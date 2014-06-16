@@ -12,6 +12,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
@@ -20,7 +21,7 @@ public class ExerciseActivity extends Activity implements View.OnClickListener {
 
     private final String LOG_TAG = "my logs";
 
-    TextView tvNextWord;
+    private TextView tvNextWord;
     Button btnSubmit;
     EditText etTranslate;
 
@@ -29,9 +30,13 @@ public class ExerciseActivity extends Activity implements View.OnClickListener {
     Cursor c;
 
     Random rand = new Random();
-    int count = 0;
+
+    static int wordsCount;
+    int count = 1;
 
     static List<String> results;
+    static List<String> dbTranslation;
+    List<Integer> indexes;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,49 +52,56 @@ public class ExerciseActivity extends Activity implements View.OnClickListener {
         dbHelper = new DBHelper(this);
         db = dbHelper.getWritableDatabase();
         c = db.query("myWords", null, null, null, null, null, null);
+
+        wordsCount = c.getCount();
+
+        dbTranslation = new ArrayList<String>();
         results = new LinkedList<String>();
 
         if(c != null){
-            Log.d(LOG_TAG, String.valueOf(c.getCount()));
-            if(c.moveToPosition(rand.nextInt(c.getCount()))){
-                setTvNextWord(tvNextWord, c);
+            if(c.moveToFirst()) {
+                do {
+                    String str = c.getString(c.getColumnIndex("translation"));
+                    dbTranslation.add(str);
+                } while (c.moveToNext());
+                c.close();
             }
-        } else
-            Log.d(LOG_TAG, "Cursor is null");
+        }
+
+        indexes = new ArrayList<Integer>();
+        for(int i = 0; i < wordsCount; i++){
+            indexes.add(i);
+        }
+
+        int randomIndexOnCreate = rand.nextInt(indexes.size());
+        tvNextWord.setText(dbTranslation.get(randomIndexOnCreate));
+        indexes.remove(randomIndexOnCreate);
+        Log.d(LOG_TAG, String.valueOf(indexes.size()));
     }
 
     @Override
     public void onClick(View view) {
-            if(c != null){
-                if(c.moveToPosition(rand.nextInt(c.getCount()))){
-                    if(count < c.getCount()) {
-                        setTvNextWord(tvNextWord, c);
-                        results.add(etTranslate.getText().toString());
-                        count++;
-
-                    } else {
-                        Intent intent = new Intent(this, ResultsActivity.class);
-                        startActivity(intent);
-                    }
+        int randomIndex;
+            if(etTranslate.getText() != null){
+                if(count < wordsCount) {
+                    randomIndex = rand.nextInt(indexes.size());
+                    String nextWord = dbTranslation.get(randomIndex);
+                    tvNextWord.setText(nextWord);
+                    results.add(etTranslate.getText().toString());
+                    Log.d(LOG_TAG, String.valueOf(results.size()));
+                    dbTranslation.remove(randomIndex);
+                    indexes.remove(randomIndex);
+                    count++;
+                } else {
+                   Intent intent = new Intent(this, ResultsActivity.class);
+                   startActivity(intent);
                 }
             } else
-                Toast.makeText(this, "Cursor is empty", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Fill translation!", Toast.LENGTH_SHORT).show();
 
+        for(String result: results){
+            Log.d(LOG_TAG, result);
+        }
 
-    }
-
-    private void setTvNextWord(TextView tv, Cursor c){
-        String nextWord = c.getString(c.getColumnIndex("translation"));
-        tv.setText(nextWord);
-    }
-
-    public List<String> getOriginals(){
-        return results;
-    }
-
-
-
-
-
-
+        }
     }
