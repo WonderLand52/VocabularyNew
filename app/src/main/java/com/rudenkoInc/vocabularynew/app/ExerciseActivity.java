@@ -38,7 +38,6 @@ public class ExerciseActivity extends Activity implements View.OnClickListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.exercise);
-        Log.d(LOG_TAG, "ALJOOOO!!!!");
 
         DBHelper dbHelper;
         SQLiteDatabase db;
