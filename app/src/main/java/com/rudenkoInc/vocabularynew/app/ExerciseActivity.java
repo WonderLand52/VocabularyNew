@@ -98,10 +98,6 @@ public class ExerciseActivity extends Activity implements View.OnClickListener {
                 }
             } else
                 Toast.makeText(this, "Fill translation!", Toast.LENGTH_SHORT).show();
-
-        for(String result: results){
-            Log.d(LOG_TAG, result);
-        }
-
+        etTranslate.setText("");
         }
     }
