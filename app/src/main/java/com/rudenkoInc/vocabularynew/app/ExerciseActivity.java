@@ -55,9 +55,6 @@ public class ExerciseActivity extends Activity implements View.OnClickListener {
         db = dbHelper.getWritableDatabase();
         c = db.query("myWords", null, null, null, null, null, null);
 
-
-
-
         dbTranslation = new ArrayList<String>();
         results = new ArrayList<String>();
 
@@ -95,7 +92,6 @@ public class ExerciseActivity extends Activity implements View.OnClickListener {
                     String nextWord = dbTranslation.get(randomIndexOnClick);
                     tvNextWord.setText(nextWord);
                     results.add(etTranslate.getText().toString());
-//                    Log.d(LOG_TAG, results.get(count));
                     dbTranslation.remove(randomIndexOnClick);
                     indexes.remove(randomIndexOnClick);
                     ++count;
