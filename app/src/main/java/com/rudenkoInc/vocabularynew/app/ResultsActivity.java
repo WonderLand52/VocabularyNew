@@ -40,7 +40,7 @@ public class ResultsActivity extends Activity implements View.OnClickListener {
             if(c.moveToFirst()){
                 do{
                     String dbOriginal = c.getString(c.getColumnIndex("original"));
-                    for(String result: ExerciseActivity.results){
+                    for(String result: ExerciseActivity.getResults()){
                         if(dbOriginal.equalsIgnoreCase(result))
                             count++;
                     }

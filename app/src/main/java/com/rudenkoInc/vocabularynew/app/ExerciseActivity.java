@@ -22,21 +22,23 @@ public class ExerciseActivity extends Activity implements View.OnClickListener {
     private final String LOG_TAG = "my logs";
 
     private TextView tvNextWord;
-    Button btnSubmit;
-    EditText etTranslate;
+    private Button btnSubmit;
+    private EditText etTranslate;
 
-    DBHelper dbHelper;
-    SQLiteDatabase db;
-    Cursor c;
+    private DBHelper dbHelper;
+    private SQLiteDatabase db;
+    private Cursor c;
 
     Random rand = new Random();
 
     static int wordsCount;
     int count = 1;
 
-    static List<String> results;
-    static List<String> dbTranslation;
+    private static List<String> results;
+    
+    private List<String> dbTranslation;
     List<Integer> indexes;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,4 +102,10 @@ public class ExerciseActivity extends Activity implements View.OnClickListener {
                 Toast.makeText(this, "Fill translation!", Toast.LENGTH_SHORT).show();
         etTranslate.setText("");
         }
+
+    public static List<String> getResults(){
+        return results;
+    }
+
+
     }
