@@ -14,7 +14,7 @@ public class ResultsActivity extends Activity implements View.OnClickListener {
     private final String LOG_TAG = "my logs";
 
     TextView tvPercent;
-    int count = 1;
+    int count = 0;
     int countResult;
 
     DBHelper dbHelper = new DBHelper(this);
