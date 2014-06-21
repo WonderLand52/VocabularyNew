@@ -11,7 +11,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -23,15 +22,15 @@ public class ExerciseActivity extends Activity implements View.OnClickListener {
     private TextView tvNextWord;
     private EditText etTranslate;
 
-    Random rand = new Random();
+    private Random rand = new Random();
 
-    static int wordsCount;
-    int count = 0;
+    private int wordsCount;
+    private int count = 0;
 
-    private static List<String> results;
+    private List<String> results;
 
     private List<String> dbTranslation;
-    List<Integer> indexes;
+    private List<Integer> indexes;
 
 
     @Override
@@ -79,6 +78,8 @@ public class ExerciseActivity extends Activity implements View.OnClickListener {
         tvNextWord.setText(dbTranslation.get(randomIndexOnCreate));
         indexes.remove(randomIndexOnCreate);
 
+
+
     }
 
     @Override
@@ -97,6 +98,8 @@ public class ExerciseActivity extends Activity implements View.OnClickListener {
                     ++count;
                 } else {
                    Intent intent = new Intent(this, ResultsActivity.class);
+                    intent.putStringArrayListExtra("results", (ArrayList<String>) getResults());
+                    intent.putExtra("wordsCount", getWordsCount());
                    startActivity(intent);
                 }
             } else
@@ -104,8 +107,12 @@ public class ExerciseActivity extends Activity implements View.OnClickListener {
         etTranslate.setText("");
         }
 
-    public static List<String> getResults(){
+    public List<String> getResults(){
         return results;
+    }
+
+    public int getWordsCount(){
+        return wordsCount;
     }
 
 
